@@ -1,0 +1,6 @@
+.vscode
+.env
+server
+server-rest
+coverage*
+.idea

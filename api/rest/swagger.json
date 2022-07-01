@@ -1,0 +1,164 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "The purpose of this application is be modern API.",
+        "title": "Modern API",
+        "contact": {},
+        "version": "1.0.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/businesses": {
+            "get": {
+                "description": "Search all businesses",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Businesses"
+                ],
+                "summary": "Search all businesses",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dtoresponse.BusinessResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dtoresponse.BusinessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtoresponse.BusinessResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new business",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Businesses"
+                ],
+                "summary": "Create a new business",
+                "parameters": [
+                    {
+                        "description": "Business",
+                        "name": "Business",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtorequest.BusinessRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtoresponse.BusinessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dtoresponse.BusinessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtoresponse.BusinessResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dtorequest.BusinessRequest": {
+            "type": "object",
+            "required": [
+                "businessId",
+                "description",
+                "name",
+                "regDate"
+            ],
+            "properties": {
+                "businessId": {
+                    "description": "Business ID",
+                    "type": "string",
+                    "maxLength": 3,
+                    "minLength": 1
+                },
+                "description": {
+                    "description": "Detailed description of business",
+                    "type": "string",
+                    "maxLength": 200,
+                    "minLength": 1
+                },
+                "name": {
+                    "description": "Business name",
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 1
+                },
+                "publicCode": {
+                    "description": "Public code",
+                    "type": "string",
+                    "maxLength": 36
+                },
+                "regDate": {
+                    "description": "Register date",
+                    "type": "string"
+                }
+            }
+        },
+        "dtoresponse.BusinessResponse": {
+            "type": "object",
+            "required": [
+                "regDate"
+            ],
+            "properties": {
+                "businessId": {
+                    "description": "Business ID",
+                    "type": "string",
+                    "maxLength": 3
+                },
+                "description": {
+                    "description": "Detailed description of business",
+                    "type": "string",
+                    "maxLength": 200
+                },
+                "name": {
+                    "description": "Business name",
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "publicCode": {
+                    "description": "Public code",
+                    "type": "string",
+                    "maxLength": 36
+                },
+                "regDate": {
+                    "description": "Register date",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

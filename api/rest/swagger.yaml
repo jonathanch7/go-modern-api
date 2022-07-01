@@ -1,0 +1,116 @@
+basePath: /api
+definitions:
+  dtorequest.BusinessRequest:
+    properties:
+      businessId:
+        description: Business ID
+        maxLength: 3
+        minLength: 1
+        type: string
+      description:
+        description: Detailed description of business
+        maxLength: 200
+        minLength: 1
+        type: string
+      name:
+        description: Business name
+        maxLength: 50
+        minLength: 1
+        type: string
+      publicCode:
+        description: Public code
+        maxLength: 36
+        type: string
+      regDate:
+        description: Register date
+        type: string
+    required:
+    - businessId
+    - description
+    - name
+    - regDate
+    type: object
+  dtoresponse.BusinessResponse:
+    properties:
+      businessId:
+        description: Business ID
+        maxLength: 3
+        type: string
+      description:
+        description: Detailed description of business
+        maxLength: 200
+        type: string
+      name:
+        description: Business name
+        maxLength: 50
+        type: string
+      publicCode:
+        description: Public code
+        maxLength: 36
+        type: string
+      regDate:
+        description: Register date
+        type: string
+    required:
+    - regDate
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: The purpose of this application is be modern API.
+  title: Modern API
+  version: 1.0.0
+paths:
+  /businesses:
+    get:
+      description: Search all businesses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dtoresponse.BusinessResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dtoresponse.BusinessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtoresponse.BusinessResponse'
+      summary: Search all businesses
+      tags:
+      - Businesses
+    post:
+      consumes:
+      - application/json
+      description: Create a new business
+      parameters:
+      - description: Business
+        in: body
+        name: Business
+        required: true
+        schema:
+          $ref: '#/definitions/dtorequest.BusinessRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtoresponse.BusinessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dtoresponse.BusinessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtoresponse.BusinessResponse'
+      summary: Create a new business
+      tags:
+      - Businesses
+swagger: "2.0"
