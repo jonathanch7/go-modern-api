@@ -10,7 +10,6 @@ import (
 	"github.com/jonathanch7/go-modern-api/internal/core/infrastructure/adapter/rest/mapper"
 	"github.com/jonathanch7/go-modern-api/internal/shared/application"
 	"github.com/jonathanch7/go-modern-api/internal/shared/infrastructure/adapter/rest/response"
-	"log"
 )
 
 type BusinessesController struct {
@@ -69,21 +68,15 @@ func (ctr *BusinessesController) Save(c *gin.Context) {
 // @Failure 400 {object} dtoresponse.BusinessResponse
 // @Router /businesses [get]
 func (ctr *BusinessesController) SearchAll(c *gin.Context) {
-	log.Printf("1 ")
 	businesses, err := ctr.app.Core.Queries.SearchAllBusinesses.Handle(context.Background())
 	if err != nil {
-		log.Printf("2 ")
 		response.NewResponseBuilder(c, nil).Error(err).Build()
 		return
 	}
-	log.Printf("3 ")
 	if len(businesses) == 0 {
-		log.Printf("4 ")
 		response.NewResponseBuilder(c, nil).Build()
 		return
 	}
 	res := mapper.Business.ToDTOsResponse(businesses)
-	log.Printf("businesses %v", businesses)
-	log.Printf("res %v", res)
-	response.NewResponseBuilder(c, res).Build()
+	response.NewResponseBuilder(c, &res).Build()
 }
